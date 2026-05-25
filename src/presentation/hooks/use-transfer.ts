@@ -14,7 +14,7 @@ export function useTransfer() {
       if (balance) {
         queryClient.setQueryData<Balance>(QUERY_KEYS.BALANCE, {
           ...balance,
-          accountBalance: balance.accountBalance - variables.value,
+          accountBalance: Math.max(0, balance.accountBalance - variables.value),
         });
       }
 
