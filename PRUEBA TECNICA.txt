@@ -1,0 +1,214 @@
+# Traducción al español
+
+## Prueba Práctica para Desarrollador Front-End “BancoXYZ”
+
+### Objetivo
+
+Desarrollar una aplicación móvil básica en React Native que incluya las funcionalidades esenciales descritas en el proyecto “BancoXYZ”.
+
+### Instrucciones
+
+* Tendrás cinco días para completar esta prueba.
+* Usa React Native con Expo para desarrollar la aplicación.
+* Envía el código en un repositorio Git y comparte el enlace al final.
+
+---
+
+## Requisitos de la Aplicación
+
+### 1. Configuración Inicial
+
+* Configura un nuevo proyecto React Native usando Expo.
+* Asegúrate de que todas las dependencias necesarias estén listadas en el `package.json`.
+
+### 2. Funcionalidad de Inicio de Sesión
+
+* Implementa una pantalla de inicio de sesión funcional.
+* Permite que los usuarios inicien sesión usando un correo electrónico y una contraseña.
+
+### 3. Visualización del Saldo
+
+* Después del inicio de sesión, redirige a los usuarios a la página principal.
+* Crea un componente que muestre el saldo actual del usuario.
+
+### 4. Transferencias Bancarias
+
+* Implementa una pantalla donde los usuarios puedan realizar transferencias bancarias. Incluye campos para el valor de la transferencia y el destinatario.
+* Agrega la funcionalidad para programar transferencias para una fecha futura.
+
+### 5. Listado de Transferencias
+
+* Crea una pantalla que liste todas las transferencias realizadas. Incluye información como destinatario, valor y fecha.
+* Implementa funcionalidad de filtrado por nombre del destinatario, valor y fecha.
+
+### 6. Pruebas Unitarias
+
+* Configura un entorno de pruebas usando Jest.
+* Asegúrate de que las pruebas cubran casos importantes y se ejecuten correctamente.
+
+---
+
+## Criterios de Evaluación
+
+* **Funcionalidad:** La aplicación cumple con todos los requisitos especificados.
+* **Código:** Claridad, organización y buenas prácticas de programación.
+* **Interfaz de Usuario:** Diseño y usabilidad de la interfaz.
+* **Pruebas:** Implementación y cobertura de pruebas unitarias.
+* **Commits en Git - Frecuencia:** Uso consistente de commits durante el desarrollo.
+* **Commits en Git - Claridad:** Mensajes de commit claros y descriptivos que reflejen los cambios realizados.
+* **Commits en Git - Estructura:** Uso de commits atómicos que faciliten el seguimiento de cambios en el código.
+* **Documentación:** Instrucciones claras sobre cómo configurar y ejecutar la aplicación y las pruebas.
+
+---
+
+## Entrega
+
+* Crea un archivo README en el repositorio Git con instrucciones sobre cómo instalar, ejecutar la aplicación y correr las pruebas.
+* Envía el enlace del repositorio a [insertar correo electrónico o plataforma de envío].
+
+¡Buena suerte y disfruta programando!
+
+---
+
+# Documentación de la API - BancoXYZ
+
+Bienvenido a la documentación técnica de la API de BancoXYZ. Esta API permite realizar autenticación, consulta de saldo, transferencias e historial de transacciones.
+
+---
+
+## Autenticación
+
+La mayoría de los endpoints requieren un Bearer Token en el encabezado de las solicitudes, obtenido a través del endpoint de login.
+
+---
+
+## 1. Inicio de Sesión de Usuario
+
+Realiza la autenticación y devuelve el token de acceso.
+
+* **Endpoint:** `POST /login`
+* **URL:** `https://qf5k9fspl0.execute-api.us-east-1.amazonaws.com/default/login`
+
+### Body de la Solicitud
+
+```json
+{
+  "email": "string",
+  "password": "string"
+}
+```
+
+### Respuesta (200 OK)
+
+```json
+{
+  "token": "string",
+  "user": {
+    "id": 0,
+    "name": "string",
+    "email": "string"
+  }
+}
+```
+
+### Tabla de Credenciales de Prueba
+
+| ID | Nombre        | Email                                         | Contraseña |
+| -- | ------------- | --------------------------------------------- | ---------- |
+| 1  | Gabriel Topaz | [gabriel@topaz.com](mailto:gabriel@topaz.com) | 1111       |
+| 2  | Alejo Topaz   | [alejo@topaz.com](mailto:alejo@topaz.com)     | 2222       |
+| 3  | Wilson Topaz  | [wilson@topaz.com](mailto:wilson@topaz.com)   | 3333       |
+
+---
+
+## 2. Obtener Saldo
+
+Devuelve el saldo actual de la cuenta del usuario autenticado.
+
+* **Endpoint:** `GET /balance`
+* **URL:** `https://2k0ic4z7s5.execute-api.us-east-1.amazonaws.com/default/balance`
+* **Headers:** `Authorization: Bearer <token>`
+
+### Respuesta (200 OK)
+
+```json
+{
+  "currency": "BRL",
+  "accountBalance": 1500.50
+}
+```
+
+---
+
+## 3. Realizar Transferencia Bancaria
+
+Realiza una nueva transferencia de dinero.
+
+* **Endpoint:** `POST /transfer`
+* **URL:** `https://ofqx4zxgcf.execute-api.us-east-1.amazonaws.com/default/transfer`
+* **Headers:** `Authorization: Bearer <token>`
+
+### Body de la Solicitud
+
+```json
+{
+  "value": 100.00,
+  "currency": "BRL",
+  "payeerDocument": "12345678900",
+  "transferDate": "2026-03-27"
+}
+```
+
+### Respuesta (200 OK)
+
+```json
+{
+  "status": "success"
+}
+```
+
+---
+
+## 4. Listar Transferencias
+
+Devuelve el historial de transferencias realizadas por el usuario.
+
+* **Endpoint:** `GET /transferlist`
+* **URL:** `https://n0qaa2fx3c.execute-api.us-east-1.amazonaws.com/default/transferList`
+* **Headers:** `Authorization: Bearer <token>`
+
+### Respuesta (200 OK)
+
+```json
+[
+  {
+    "value": 250.00,
+    "date": "2026-03-20",
+    "currency": "BRL",
+    "payeer": {
+      "document": "98765432100",
+      "name": "Nombre del destinatario"
+    }
+  }
+]
+```
+
+---
+
+# Códigos de Estado HTTP
+
+| Código | Descripción  | Motivo Común                                                |
+| ------ | ------------ | ----------------------------------------------------------- |
+| 200    | OK           | La solicitud fue procesada correctamente.                   |
+| 400    | Bad Request  | Datos inválidos o incompletos en el cuerpo de la solicitud. |
+| 401    | Unauthorized | Token ausente, inválido o credenciales incorrectas.         |
+
+### Nota
+
+Para todos los endpoints (excepto Login), utiliza el header `Authorization` con el valor:
+
+```text
+Bearer fake-jwt-token
+```
+
+cuando estés en un entorno de prueba simplificado.
