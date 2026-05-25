@@ -23,6 +23,14 @@ Mobile banking application built with React Native (Expo SDK 56).
 - **Transfer** — Send money with date scheduling (date picker)
 - **History** — View all transfers with filtering by name, value, and date
 
+## Screenshots
+
+| Login | Balance oculto | Transferencias |
+|---|---|---|
+| ![Login](screenshots/login.png) | ![Balance oculto](screenshots/hidden-balance.png) | ![Transferencias](screenshots/transfers-list.png) |
+| **Formulario de transferencia** | **Transferencia exitosa** | **Balance post-transferencia** |
+| ![Formulario](screenshots/transfer-form.png) | ![Éxito](screenshots/transfer-success.png) | ![Balance actualizado](screenshots/balance-after-transfer.png) |
+
 ## Prerequisites
 
 - Node.js >= 20
@@ -109,6 +117,7 @@ BancoXYZ/
 │   ├── store/             # Zustand stores
 │   ├── types/             # TypeScript types
 │   └── utils/             # Helpers (validation, format, storage)
+├── screenshots/           # App screenshots
 ├── __tests__/             # Unit tests
 ├── global.css             # Tailwind directives
 └── biome.json             # Biome linter config
