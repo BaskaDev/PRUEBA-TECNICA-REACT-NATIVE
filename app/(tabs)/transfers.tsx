@@ -5,7 +5,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import type { Transfer, TransferFilters } from "../../src/domain/entities/transfer";
 import { EmptyState } from "../../src/presentation/components/empty-state";
 import { FilterBar } from "../../src/presentation/components/filter-bar";
-import { MockModeBanner } from "../../src/presentation/components/mock-mode-banner";
 import { ScreenHeader } from "../../src/presentation/components/screen-header";
 import { TransferListItem } from "../../src/presentation/components/transfer-list-item";
 import { useTransferList } from "../../src/presentation/hooks/use-transfer-list";
@@ -47,8 +46,6 @@ export default function TransfersScreen() {
           onChange={setFilters}
           onClear={() => setFilters(EMPTY_FILTERS)}
         />
-
-        <MockModeBanner />
 
         {filteredTransfers.length > 0 && (
           <View className="mx-4 mb-2 mt-1 flex-row items-center justify-between">

@@ -1,7 +1,6 @@
 import { useRouter } from "expo-router";
 import { Alert, ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { MockModeBanner } from "../../src/presentation/components/mock-mode-banner";
 import { ScreenHeader } from "../../src/presentation/components/screen-header";
 import { TransferForm } from "../../src/presentation/components/transfer-form";
 import { useTransfer } from "../../src/presentation/hooks/use-transfer";
@@ -40,7 +39,6 @@ export default function TransferScreen() {
       <ScreenHeader title="BancoXYZ" subtitle="Nueva transferencia" />
       <SafeAreaView edges={["bottom"]} className="flex-1">
         <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
-          <MockModeBanner />
           <TransferForm onSubmit={handleSubmit} isPending={transfer.isPending} />
         </ScrollView>
       </SafeAreaView>

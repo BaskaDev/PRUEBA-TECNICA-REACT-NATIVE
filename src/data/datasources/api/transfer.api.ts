@@ -3,7 +3,6 @@ import type {
   TransferRequest,
   TransferResponse,
 } from "../../../domain/entities/transfer";
-import { useMockModeStore } from "../../../presentation/store/mock-mode-store";
 import { API } from "../../../shared/constants/api";
 import { apiClient } from "./client";
 
@@ -39,7 +38,6 @@ export async function createTransfer(data: TransferRequest): Promise<TransferRes
     const response = await apiClient.post<TransferResponse>(API.TRANSFER, data, { timeout: 8000 });
     return response.data;
   } catch {
-    useMockModeStore.getState().setMockMode(true, "transferencias");
     return { status: "success" };
   }
 }
@@ -49,7 +47,6 @@ export async function fetchTransferList(): Promise<Transfer[]> {
     const response = await apiClient.get<Transfer[]>(API.TRANSFER_LIST, { timeout: 8000 });
     return response.data;
   } catch {
-    useMockModeStore.getState().setMockMode(true, "historial");
     return MOCK_TRANSFERS;
   }
 }

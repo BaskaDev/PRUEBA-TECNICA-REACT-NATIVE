@@ -1,6 +1,5 @@
 import axios from "axios";
 import type { LoginResponse } from "../../../domain/entities/user";
-import { useMockModeStore } from "../../../presentation/store/mock-mode-store";
 import { API } from "../../../shared/constants/api";
 import { apiClient } from "./client";
 
@@ -24,7 +23,6 @@ export async function loginUser(email: string, password: string): Promise<LoginR
     }
     const testUser = TEST_CREDENTIALS[email.toLowerCase()];
     if (testUser && testUser.password === password) {
-      useMockModeStore.getState().setMockMode(true, "autenticación");
       return {
         token: "fake-jwt-token",
         user: { id: testUser.id, name: testUser.name, email: email.toLowerCase() },

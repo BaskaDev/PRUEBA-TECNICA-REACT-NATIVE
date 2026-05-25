@@ -13,7 +13,6 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AppHeader } from "../../src/presentation/components/app-header";
 import { BalanceCard } from "../../src/presentation/components/balance-card";
-import { MockModeBanner } from "../../src/presentation/components/mock-mode-banner";
 import { HOME_PROMOS, PromoCarousel } from "../../src/presentation/components/promo-carousel";
 import {
   DEFAULT_QUICK_ACTIONS,
@@ -109,8 +108,6 @@ export default function HomeScreen() {
             </Pressable>
           </View>
         )}
-
-        <MockModeBanner />
 
         <PromoCarousel items={promos} />
 
