@@ -2,7 +2,6 @@ import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import {
-  Alert,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -29,12 +28,9 @@ export default function LoginScreen() {
 
   useEffect(() => {
     if (login.isSuccess) {
-      if (login.data?.token === "fake-jwt-token") {
-        Alert.alert("API falló", "Se usarán datos de prueba");
-      }
       router.replace("/(tabs)");
     }
-  }, [login.isSuccess, login.data, router]);
+  }, [login.isSuccess, router]);
 
   function handleLogin() {
     const validationErrors = validateLoginForm(email, password);

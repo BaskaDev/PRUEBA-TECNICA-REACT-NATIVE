@@ -3,10 +3,6 @@ import { API } from "../../../shared/constants/api";
 import { apiClient } from "./client";
 
 export async function fetchBalance(): Promise<Balance> {
-  try {
-    const response = await apiClient.get<Balance>(API.BALANCE, { timeout: 8000 });
-    return response.data;
-  } catch {
-    return { currency: "BRL", accountBalance: 1800 };
-  }
+  const response = await apiClient.get<Balance>(API.BALANCE, { timeout: 8000 });
+  return response.data;
 }

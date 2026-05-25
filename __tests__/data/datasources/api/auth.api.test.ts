@@ -31,18 +31,10 @@ describe("loginUser", () => {
     await expect(loginUser("bad@email.com", "wrong")).rejects.toThrow("Email o contraseña inválidos");
   });
 
-  it("falls back to test credentials when API fails with non-401", async () => {
+  it("throws on non-401 API error", async () => {
     mockPostError(500);
 
-    const result = await loginUser("gabriel@topaz.com", "1111");
-    expect(result.token).toBe("fake-jwt-token");
-    expect(result.user.email).toBe("gabriel@topaz.com");
-  });
-
-  it("throws when test credentials do not match and API fails", async () => {
-    mockPostError(500);
-
-    await expect(loginUser("unknown@test.com", "wrong")).rejects.toThrow(
+    await expect(loginUser("gabriel@topaz.com", "1111")).rejects.toThrow(
       "Error de conexión. Verifica tu internet e intenta de nuevo.",
     );
   });
@@ -50,22 +42,9 @@ describe("loginUser", () => {
   it("throws on network error", async () => {
     mockPostError(undefined);
 
-    await expect(loginUser("unknown@test.com", "wrong")).rejects.toThrow(
+    await expect(loginUser("gabriel@topaz.com", "1111")).rejects.toThrow(
       "Error de conexión. Verifica tu internet e intenta de nuevo.",
     );
-  });
-
-  it("works for all three test users", async () => {
-    mockPostError(500);
-
-    const gabriel = await loginUser("gabriel@topaz.com", "1111");
-    expect(gabriel.user.id).toBe(1);
-
-    const alejo = await loginUser("alejo@topaz.com", "2222");
-    expect(alejo.user.id).toBe(2);
-
-    const wilson = await loginUser("wilson@topaz.com", "3333");
-    expect(wilson.user.id).toBe(3);
   });
 
   it("sends correct payload to API", async () => {

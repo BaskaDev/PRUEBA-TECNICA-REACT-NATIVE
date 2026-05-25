@@ -21,9 +21,9 @@ export const useAuthStore = create<AuthState>((set) => ({
   isLoading: true,
 
   setAuth: async (token, user) => {
+    set({ token, user, isAuthenticated: true });
     await setSecureItem(STORAGE_KEYS.AUTH_TOKEN, token);
     await setSecureItem(STORAGE_KEYS.AUTH_USER, JSON.stringify(user));
-    set({ token, user, isAuthenticated: true });
   },
 
   logout: async () => {
@@ -38,14 +38,14 @@ export const useAuthStore = create<AuthState>((set) => ({
       const userJson = await getSecureItem(STORAGE_KEYS.AUTH_USER);
       if (token && userJson) {
         const user = JSON.parse(userJson) as User;
+        set({ token, user, isAuthenticated: true });
         try {
           await balanceRepository.getBalance();
-          set({ token, user, isAuthenticated: true, isLoading: false });
-          return;
         } catch {
-          set({ token, user, isAuthenticated: true, isLoading: false });
-          return;
+          //
         }
+        set({ isLoading: false });
+        return;
       }
     } catch {
       //

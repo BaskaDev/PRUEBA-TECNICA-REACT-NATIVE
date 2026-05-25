@@ -23,11 +23,10 @@ describe("createTransfer", () => {
     expect(result.status).toBe("success");
   });
 
-  it("returns fallback success on API failure", async () => {
+  it("throws on API failure", async () => {
     mockAxiosInstance.post = jest.fn().mockRejectedValueOnce(new Error("Network error"));
 
-    const result = await createTransfer(validTransferRequest);
-    expect(result.status).toBe("success");
+    await expect(createTransfer(validTransferRequest)).rejects.toThrow("Network error");
   });
 
   it("sends correct payload", async () => {
@@ -57,12 +56,10 @@ describe("fetchTransferList", () => {
     expect(result[0].payeer.name).toBe("Test");
   });
 
-  it("returns mock transfers on API failure", async () => {
+  it("throws on API failure", async () => {
     mockAxiosInstance.get = jest.fn().mockRejectedValueOnce(new Error("Network error"));
 
-    const result = await fetchTransferList();
-    expect(result.length).toBeGreaterThan(0);
-    expect(result[0].payeer.name).toBe("María López");
+    await expect(fetchTransferList()).rejects.toThrow("Network error");
   });
 
   it("calls the correct URL", async () => {

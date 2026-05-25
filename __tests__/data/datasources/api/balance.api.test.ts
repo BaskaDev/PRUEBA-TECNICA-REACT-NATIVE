@@ -16,22 +16,19 @@ describe("fetchBalance", () => {
     expect(result.accountBalance).toBe(2500);
   });
 
-  it("returns fallback balance on API failure", async () => {
+  it("throws on API failure", async () => {
     mockAxiosInstance.get = jest.fn().mockRejectedValueOnce(new Error("Network error"));
 
-    const result = await fetchBalance();
-    expect(result.currency).toBe("BRL");
-    expect(result.accountBalance).toBe(1800);
+    await expect(fetchBalance()).rejects.toThrow("Network error");
   });
 
-  it("returns fallback balance on 500 error", async () => {
+  it("throws on 500 error", async () => {
     mockAxiosInstance.get = jest.fn().mockRejectedValueOnce({
       response: { status: 500 },
       isAxiosError: true,
     });
 
-    const result = await fetchBalance();
-    expect(result.accountBalance).toBe(1800);
+    await expect(fetchBalance()).rejects.toBeDefined();
   });
 
   it("calls the correct URL", async () => {
